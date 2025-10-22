@@ -282,7 +282,7 @@ if run_pressed:
     st.subheader("✅ Trade Results")
     if trades_out:
         trade_df = pd.DataFrame(trades_out, columns=["Giver","Sticker","Receiver"])
-        trade_df["Summary"] = trade_df["Giver"] + " gives " + trade_df["Sticker"].astype(str) + " to " + trade_df["Receiver"]
+        trade_df["Summary"] = trade_df["Giver"] + " " + trade_df["Sticker"].astype(str) + " to " + trade_df["Receiver"]
         st.dataframe(trade_df[["Summary"]], use_container_width=True)
     else:
         st.info("No trades found.")
