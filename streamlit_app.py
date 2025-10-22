@@ -52,7 +52,7 @@ def hopcroft_karp(adj, Lsize, Rsize):
 # -----------------------
 # UI: sticker IDs inputs
 # -----------------------
-st.markdown("**Step 1 — Enter this week's sticker IDs 1st, THEN click CLEAR DATA before entering info**")
+st.markdown("**Step 1 — Enter this week's sticker #s 1st, THEN click CLEAR DATA before entering info**")
 cols = st.columns(5)
 default_stickers = st.session_state.get("stickers", ["3","6","14","16","21"])
 sticker_inputs = []
