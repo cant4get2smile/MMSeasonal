@@ -80,16 +80,24 @@ if "grid_df" not in st.session_state:
     st.session_state["grid_df"] = make_empty_df()
 
 # show editable grid and update session state more reliably
+# --- Editable grid with stable persistence ---
+import time
+
+# Use a unique key so Streamlit preserves widget state properly
 edited = st.data_editor(
     st.session_state["grid_df"],
     num_rows="dynamic",
     use_container_width=True,
-    key="data_editor_main"
+    key="data_editor_main",
 )
 
-# Only update session_state when changes are detected
-if not st.session_state["grid_df"].equals(edited):
-    st.session_state["grid_df"] = edited.copy()
+# Small debounce to let edits settle before updating state
+time.sleep(0.1)
+
+# Only commit to session_state if something changed
+if not edited.equals(st.session_state["grid_df"]):
+    st.session_state["grid_df"] = edited.copy(deep=True)
+
 
 
 # Buttons
