@@ -79,9 +79,18 @@ def make_empty_df():
 if "grid_df" not in st.session_state:
     st.session_state["grid_df"] = make_empty_df()
 
-# show experimental data editor (editable grid)
-edited = st.data_editor(st.session_state["grid_df"], num_rows="dynamic", use_container_width=True)
-st.session_state["grid_df"] = edited
+# show editable grid and update session state more reliably
+edited = st.data_editor(
+    st.session_state["grid_df"],
+    num_rows="dynamic",
+    use_container_width=True,
+    key="data_editor_main"
+)
+
+# Only update session_state when changes are detected
+if not st.session_state["grid_df"].equals(edited):
+    st.session_state["grid_df"] = edited.copy()
+
 
 # Buttons
 col_run, col_clear = st.columns([1,1])
